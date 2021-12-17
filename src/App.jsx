@@ -1,6 +1,11 @@
 import { Component } from 'react';
 import './App.scss';
 import Flat from './Flat';
+import ReactMapboxGl from 'react-mapbox-gl';
+const Map = ReactMapboxGl({ accessToken:
+    "pk.eyJ1IjoiZW1zdmlvbGV0IiwiYSI6ImNrdmt0MTZwZTB6Ymcyb3RreXBvdDNubGsifQ.UgnTFG2v0_BN890pVoT8kw"
+});
+// import 'mapbox-gl/dist/mapbox-gl.css';
 
 const FLATS_URL = "https://raw.githubusercontent.com/lewagon/flats-boilerplate/master/flats.json"
 
@@ -38,7 +43,11 @@ class App extends Component {
             </div>
           </div>
           <div className="map">
-
+            <Map
+              zoom={[14]}
+              containerStyle={{height: '100vh', width: '100%' }}
+              style="mapbox://styles/mapbox/streets-v8"
+            />
           </div>
         </div>
       );
