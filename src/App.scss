@@ -6,9 +6,10 @@
     flex-direction: column;
   }
   .flats {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+    margin-top: 20px;
   }
   .map {
     flex-grow: 1;

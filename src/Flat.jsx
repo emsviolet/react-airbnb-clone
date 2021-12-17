@@ -5,7 +5,8 @@ const Flat = ({ price , name, imageUrl}) => {
     <div className="flat">
       <img src={imageUrl} className="flat-img" alt="" />
       <div className="flat-content">
-        {name} | {price}
+        <h4>{name}</h4>
+        <p>{price}€ / night</p>
       </div>
     </div>
   );
