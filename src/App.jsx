@@ -22,22 +22,28 @@ class App extends Component {
   }
 
   render () {
-    return (
-      <div className="app">
-        <div className="left">
-          <input className="search" />
-          <div className="flats">
-            {this.state.flats.map(flat => {
-              return <Flat price={flat.price} name={flat.name} imageUrl={flat.imageUrl}/>
-            })}
+    if (this.state.flats.length === 0) {
+      return (
+        <h2>Loading flats..........</h2>
+      );
+    } else {
+      return (
+        <div className="app">
+          <div className="left">
+            <input className="search" />
+            <div className="flats">
+              {this.state.flats.map(flat => {
+                return <Flat price={flat.price} name={flat.name} imageUrl={flat.imageUrl}/>
+              })}
+            </div>
+          </div>
+          <div className="map">
+
           </div>
         </div>
-        <div className="map">
-
-        </div>
-      </div>
-    );
+      );
+      }
+    }
   }
-}
 
 export default App;
