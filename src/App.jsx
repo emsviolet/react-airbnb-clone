@@ -12,7 +12,8 @@ const Map = ReactMapboxGl({ accessToken:
 
 class App extends Component {
   state = {
-    flats: [ ]
+    flats: [ ],
+    center: [2.3522, 48.8566]
   }
 
   componentDidMount() {
@@ -27,8 +28,15 @@ class App extends Component {
       });
   }
 
+  handleFlatSelect = (flatId) => {
+    const selectedFlat = this.state.flats.find(flat => flat.id === flatId)
+    this.setState({center: [selectedFlat.lng, selectedFlat.lat] });
+  }
+
   render () {
-    if (this.state.flats.length === 0) {
+    const { center, flats } = this.state;
+
+    if (flats.length === 0) {
       return (
         <h2>Loading flats..........</h2>
       );
@@ -38,18 +46,23 @@ class App extends Component {
           <div className="left">
             <input className="search" />
             <div className="flats">
-              {this.state.flats.map(flat => {
-                return <Flat price={flat.price} name={flat.name} imageUrl={flat.imageUrl}/>
+              {flats.map(flat => {
+                return <Flat
+                  onSelect={this.handleFlatSelect}
+                  id={flat.id}
+                  price={flat.price}
+                  name={flat.name}
+                  imageUrl={flat.imageUrl}/>
               })}
             </div>
           </div>
           <div className="map">
             <Map
               zoom={[12]}
-              center= {[2.3522,48.8566]}
+              center= {center}
               containerStyle={{ height: '100vh', width: '100%' }}
               style="mapbox://styles/mapbox/streets-v11">
-                {this.state.flats.map(flat => {
+                {flats.map(flat => {
                   return (
                     <FlatMarker price={flat.price} lat={flat.lat} lng={flat.lng} />
                   );
