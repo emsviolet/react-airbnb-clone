@@ -16,4 +16,12 @@
       color: gray;
     }
   }
+
+  &.selected {
+    border: 3px solid coral;
+  }
+
+   &:hover {
+    opacity: 0.6;
+  }
 }

@@ -13,8 +13,11 @@ const Map = ReactMapboxGl({ accessToken:
 class App extends Component {
   state = {
     flats: [ ],
-    center: [2.3522, 48.8566]
+    center: [2.3522, 48.8566],
+    selectedFlat: null,
+    filterText: ""
   }
+
 
   componentDidMount() {
     this.fetchFlats();
@@ -30,11 +33,24 @@ class App extends Component {
 
   handleFlatSelect = (flatId) => {
     const selectedFlat = this.state.flats.find(flat => flat.id === flatId)
-    this.setState({center: [selectedFlat.lng, selectedFlat.lat] });
+
+    this.setState({
+      center: [selectedFlat.lng, selectedFlat.lat],
+      selectedFlat: selectedFlat
+    });
   }
 
+  handleFilter = (event) => {
+    const { value } = event.target;
+    this.setState({ filterText: value })
+  }
+
+
   render () {
-    const { center, flats } = this.state;
+    const { center, flats, selectedFlat, filterText } = this.state;
+    const filteredFlats = flats.filter(flat => {
+      return flat.name.match(new RegExp(filterText, 'i'))
+    });
 
     if (flats.length === 0) {
       return (
@@ -44,27 +60,38 @@ class App extends Component {
       return (
         <div className="app">
           <div className="left">
-            <input className="search" />
+
+            <input className="search" onChange={(this.handleFilter)} />
+
             <div className="flats">
-              {flats.map(flat => {
+              {filteredFlats.map(flat => {
+                const isSelected = selectedFlat === flat;
+
                 return <Flat
                   onSelect={this.handleFlatSelect}
+                  selected={isSelected}
                   id={flat.id}
                   price={flat.price}
                   name={flat.name}
                   imageUrl={flat.imageUrl}/>
               })}
+
             </div>
           </div>
+
           <div className="map">
             <Map
               zoom={[12]}
               center= {center}
               containerStyle={{ height: '100vh', width: '100%' }}
               style="mapbox://styles/mapbox/streets-v11">
-                {flats.map(flat => {
-                  return (
-                    <FlatMarker price={flat.price} lat={flat.lat} lng={flat.lng} />
+                {filteredFlats.map(flat => {
+                  const isSelected = selectedFlat === flat;
+                  return (<FlatMarker
+                    selected={isSelected}
+                    price={flat.price}
+                    lat={flat.lat}
+                    lng={flat.lng} />
                   );
               })}
             </Map>
