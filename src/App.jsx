@@ -60,9 +60,7 @@ class App extends Component {
       return (
         <div className="app">
           <div className="left">
-
-            <input className="search" onChange={(this.handleFilter)} />
-
+            <input className="search" placeholder="Where do you want to go?" onChange={(this.handleFilter)} />
             <div className="flats">
               {filteredFlats.map(flat => {
                 const isSelected = selectedFlat === flat;

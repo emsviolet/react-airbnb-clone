@@ -17,4 +17,21 @@
     top: 0;
     position: sticky;
   }
+
+  .search {
+    border-radius: 32px;
+    margin: 20px 0px 0px 13px;
+    width: 500px;
+    height: 50px;
+    border: 1px solid #E41D52;
+  }
+  input::placeholder {
+    color: #E41D52;
+    opacity: 0.3;
+    padding: 10px;
+  }
+  button {
+    width: 30px;
+    height: 30px;
+  }
 }

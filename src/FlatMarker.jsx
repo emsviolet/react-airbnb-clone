@@ -8,7 +8,7 @@ const FlatMarker = ({ selected, price, lng, lat }) => {
       coordinates={[lng, lat]}
       anchor="bottom">
       <div className={classes}>
-        {price}
+        {price} €
       </div>
     </Marker>
   );
